@@ -4,7 +4,12 @@ import pygsheets
 
 app = Flask(__name__)
 gc = pygsheets.authorize()
-table_url = 'https://docs.google.com/spreadsheets/d/1A3xQOY8P0juEfEf_xMXkMs-zXPu3R6FPdCylmM7nSJI/edit#gid=0'
+
+# test task 1 url:
+# table_url = 'https://docs.google.com/spreadsheets/d/1A3xQOY8P0juEfEf_xMXkMs-zXPu3R6FPdCylmM7nSJI/edit#gid=0'
+
+# test task 2 url
+table_url = "https://docs.google.com/spreadsheets/d/1yulX7BjPw_PC1Wc1BUEICvRKdWnPKpwV83dRRGsZXyM/edit#gid=0"
 
 
 def grabber(url):
@@ -13,13 +18,12 @@ def grabber(url):
     return main_sheet
 
 
-wks = grabber(table_url)
-
-df = wks.get_as_df()
-
-
 @app.route('/report')
-def about():
+def report():
+
+    wks = grabber(table_url)
+
+    df = wks.get_as_df()
     data = pd.DataFrame.to_html(df)
     return data
 
